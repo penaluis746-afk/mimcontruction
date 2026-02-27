@@ -55,23 +55,56 @@
 <section class="fade-slider" style="
     position: relative;
     width: 100%;
-    height: 1050px;   /* Taller desktop height */
+    height: 600px; 
     overflow: hidden;
     margin-top: 20px;
 ">
 
-    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work1.jpeg"
-         style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:1; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work1.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:1; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work2.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image63.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image36.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image9.jpeg/refs/heads/main/Image9.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image12.jpeg/refs/heads/main/Image5.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image17.jpeg/refs/heads/main/Image17.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image22.jpeg/refs/heads/main/image22.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image49.jpeg/refs/heads/main/image45.jpeg" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
 
-    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work2.jpeg"
-         style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
+    <button onclick="changeSlide(-1)" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:15px; cursor:pointer; font-size:24px; border-radius:50%; z-index:10;">&#10094;</button>
+    <button onclick="changeSlide(1)" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; padding:15px; cursor:pointer; font-size:24px; border-radius:50%; z-index:10;">&#10095;</button>
 
-    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image63.jpeg"
-         style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
-
-    <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image36.jpeg"
-         style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0; transition:opacity 1.5s ease;">
 </section>
+
+<style>
+    /* Desktop height is 600px, but on mobile it shrinks */
+    @media (max-width: 600px) {
+        .fade-slider { height: 250px !important; }
+    }
+</style>
+
+<script>
+    let fadeIndex = 0;
+    const fadeSlides = document.querySelectorAll('.fade-slide');
+    let slideTimer = setInterval(() => changeSlide(1), 4000);
+
+    function changeSlide(direction) {
+        // Reset the timer when a user clicks a button
+        clearInterval(slideTimer);
+        slideTimer = setInterval(() => changeSlide(1), 4000);
+
+        // Update Index
+        fadeIndex += direction;
+
+        if (fadeIndex >= fadeSlides.length) { fadeIndex = 0; }
+        if (fadeIndex < 0) { fadeIndex = fadeSlides.length - 1; }
+
+        // Apply opacity
+        fadeSlides.forEach((img, i) => {
+            img.style.opacity = (i === fadeIndex) ? 1 : 0;
+        });
+    }
+</script>
+
 
 <style>
     /* ⭐ Mobile auto-fit */
