@@ -6,7 +6,7 @@
     <title>MIM Construction | Professional Services</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: white; line-height: 1.6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; line-height: 1.6; color: #333; }
 
         /* Typography */
         p { font-size: 18px; color: #444; }
@@ -21,83 +21,123 @@
         /* Hero Image */
         .hero img { width: 100%; height: auto; display: block; }
 
-        /* Slider Container */
+        /* Optimized Slider Container */
         .fade-slider {
             position: relative;
             width: 100%;
             height: 600px; 
             overflow: hidden;
-            background: #000;
+            background: #111; /* Dark background for professional framing */
         }
 
         .fade-slide {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            /* "contain" ensures the full image is visible without cropping */
+            object-fit: contain; 
             position: absolute;
             top: 0;
             left: 0;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transition: opacity 1.2s ease-in-out;
+            z-index: 1;
         }
 
-        .fade-slide.active { opacity: 1; }
+        .fade-slide.active { opacity: 1; z-index: 2; }
+
+        /* Optional: Blurred background effect for mismatched image sizes */
+        .slide-bg {
+            position: absolute;
+            width: 105%;
+            height: 105%;
+            top: -2.5%;
+            left: -2.5%;
+            object-fit: cover;
+            filter: blur(20px) brightness(0.4);
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .active + .slide-bg, .slide-bg.active-bg { opacity: 0.5; }
 
         /* Slider Controls */
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 15px 20px;
+            background: rgba(0,0,0,0.6);
+            color: #f4c20d;
+            border: 2px solid #f4c20d;
+            padding: 12px 18px;
             cursor: pointer;
             font-size: 24px;
             border-radius: 50%;
             z-index: 10;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
         .slider-btn:hover { background: #f4c20d; color: #000; }
-        .prev { left: 15px; }
-        .next { right: 15px; }
+        .prev { left: 20px; }
+        .next { right: 20px; }
 
         /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
             max-width: 1200px;
-            margin: 30px auto;
+            margin: 40px auto;
             padding: 0 20px;
         }
         .service-card {
             background: white;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            transition: transform 0.3s;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
-        .service-card:hover { transform: translateY(-5px); border-color: #f4c20d; }
+        .service-card:hover { transform: translateY(-8px); border-color: #f4c20d; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* Form Styling */
-        label { display: block; margin-top: 10px; font-weight: bold; color: #eee; }
+        /* Contact & Form Styling */
+        .contact-box, .form-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #111;
+            border-top: 5px solid #f4c20d;
+            padding: 40px;
+            border-radius: 10px;
+            color: #fff;
+        }
+        
+        label { display: block; margin-top: 15px; font-weight: bold; color: #f4c20d; }
         input, textarea { 
             width: 100%; 
             padding: 12px; 
-            margin: 5px 0 15px; 
-            border-radius: 5px; 
-            border: none; 
+            margin: 8px 0; 
+            border-radius: 4px; 
+            border: 1px solid #444; 
+            background: #222;
+            color: #fff;
             font-size: 16px;
         }
 
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #f4c20d;
+            color: #000;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover { background: #e0b00a; }
+
         /* Responsive Slider Height */
-        @media (max-width: 768px) {
-            .fade-slider { height: 350px; }
-        }
-        @media (max-width: 480px) {
-            .fade-slider { height: 250px; }
-        }
+        @media (max-width: 768px) { .fade-slider { height: 400px; } }
+        @media (max-width: 480px) { .fade-slider { height: 300px; } }
     </style>
 </head>
 <body>
@@ -106,48 +146,67 @@
         <img src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/copilot_image_1772078976595.jpeg" alt="MIM Construction Logo">
     </header>
 
-    <section style="text-align: center; padding: 40px 20px;">
+    <section style="text-align: center; padding: 50px 20px;">
         <h2>Welcome to MIM Construction</h2>
         <p>Clean. Modern. Professional. Built to last.</p>
     </section>
 
-    <section class="fade-slider">
-        <img class="fade-slide active" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work1.jpeg" alt="Work 1">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work2.jpeg" alt="Work 2">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image63.jpeg" alt="Work 3">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image36.jpeg" alt="Work 4">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image9.jpeg/refs/heads/main/Image9.jpeg" alt="Work 5">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image12.jpeg/refs/heads/main/Image5.jpeg" alt="Work 6">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image17.jpeg/refs/heads/main/Image17.jpeg" alt="Work 7">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image22.jpeg/refs/heads/main/image22.jpeg" alt="Work 8">
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image49.jpeg/refs/heads/main/image45.jpeg" alt="Work 9">
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image62.jpeg/refs/heads/main/image62.jpeg" alt="Work 10">
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image6.jpeg/refs/heads/main/Image6.jpeg" alt="Work 11">
+    <section class="fade-slider" id="slider">
+        <div class="slide-group">
+            <img class="fade-slide active" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work1.jpeg" alt="Work 1">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/work2.jpeg" alt="Work 2">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image63.jpeg" alt="Work 3">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/fastfixconstruction/refs/heads/main/image36.jpeg" alt="Work 4">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image9.jpeg/refs/heads/main/Image9.jpeg" alt="Work 5">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image12.jpeg/refs/heads/main/Image5.jpeg" alt="Work 6">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image17.jpeg/refs/heads/main/Image17.jpeg" alt="Work 7">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image22.jpeg/refs/heads/main/image22.jpeg" alt="Work 8">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image49.jpeg/refs/heads/main/image45.jpeg" alt="Work 9">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/image62.jpeg/refs/heads/main/image62.jpeg" alt="Work 10">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image6.jpeg/refs/heads/main/Image6.jpeg" alt="Work 11">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image10.jpeg/refs/heads/main/Image10.jpeg" alt="Work 12">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image12..jpeg/refs/heads/main/Image12..jpeg" alt="Work 13">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image13.jpeg/refs/heads/main/Image13.jpeg" alt="Work 14">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image15.jpeg/refs/heads/main/Image15.jpeg" alt="Work 15">
+        </div>
+        <div class="slide-group">
+            <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image18.jpeg/refs/heads/main/Image18.jpeg" alt="Work 16">
+        </div>
 
-
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image10.jpeg/refs/heads/main/Image10.jpeg" alt="Work 12">
-        
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image12..jpeg/refs/heads/main/Image12..jpeg" alt="Work 13">
-        
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image13.jpeg/refs/heads/main/Image13.jpeg" alt="Work 14">
-        
-        
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image15.jpeg/refs/heads/main/Image15.jpeg" alt="Work 15">
-        
-        <img class="fade-slide" src="https://raw.githubusercontent.com/penaluis746-afk/Image18.jpeg/refs/heads/main/Image18.jpeg" alt="Work 16">
-
-
-        <button class="slider-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="slider-btn next" onclick="moveSlide(1)">&#10095;</button>
+        <button class="slider-btn prev" onclick="moveSlide(-1)" aria-label="Previous Image">&#10094;</button>
+        <button class="slider-btn next" onclick="moveSlide(1)" aria-label="Next Image">&#10095;</button>
     </section>
 
-    <section style="padding: 60px 0; background: #f7f7f7;">
-        <h2 style="text-align:center;">Why Choose Our Construction Services</h2>
+    <section style="padding: 80px 0; background: #fcfcfc;">
+        <h2 style="text-align:center;">Our Construction Expertise</h2>
         <p style="text-align:center; max-width:700px; margin:auto; padding: 0 20px;">
             Built on reliability, craftsmanship, and fast turnaround. Every project is handled with precision and care.
         </p>
@@ -180,21 +239,21 @@
         </div>
     </section>
 
-    <div style="max-width:600px; margin:40px auto; background:#000; border:2px solid #f4c20d; padding:25px; border-radius:10px; text-align:center; color:#fff;">
-        <h2 style="color:#f4c20d; margin-bottom:15px;">Contact Us</h2>
-        <p style="font-size:20px; margin:10px 0;">
+    <div class="contact-box">
+        <h2 style="color:#f4c20d; margin-bottom:15px; text-align:center;">Get In Touch</h2>
+        <p style="font-size:20px; margin:15px 0; text-align:center;">
             <strong>Email:</strong> <a href="mailto:penaluis746@gmail.com" style="color:#f4c20d; text-decoration:none;">penaluis746@gmail.com</a>
         </p>
-        <p style="font-size:20px; margin:10px 0;">
+        <p style="font-size:20px; margin:15px 0; text-align:center;">
             <strong>Phone:</strong> <a href="tel:7084381640" style="color:#f4c20d; text-decoration:none;">708-438-1640</a>
         </p>
     </div>
 
-    <div style="max-width:700px; margin:40px auto; background:#000; border:2px solid #f4c20d; padding:30px; border-radius:10px; color:#fff;">
+    <div class="form-container">
         <h2 style="color:#f4c20d; text-align:center; margin-bottom:10px;">Book an Appointment</h2>
         <p style="text-align:center; font-size:18px; margin-bottom:25px;">Schedule your service with MIM Construction. Fast response.</p>
 
-        <form action="#" method="POST" style="max-width:500px; margin:auto;">
+        <form action="#" method="POST">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your Name" required>
 
@@ -210,34 +269,31 @@
             <label for="message">Service Needed</label>
             <textarea id="message" name="message" rows="4" placeholder="Tell us about your project..." required></textarea>
 
-            <button type="submit" style="width:100%; padding:15px; background:#f4c20d; color:#000; font-size:18px; font-weight:bold; border:none; border-radius:5px; cursor:pointer; margin-top:10px;">
+            <button type="submit" class="submit-btn">
                 Submit Appointment Request
             </button>
         </form>
     </div>
 
+    <footer style="text-align: center; padding: 20px; color: #888; font-size: 14px;">
+        &copy; 2026 MIM Construction. All rights reserved.
+    </footer>
+
     <script>
         let slideIndex = 0;
         const slides = document.querySelectorAll('.fade-slide');
-        let autoPlay = setInterval(() => moveSlide(1), 4000);
+        let autoPlay = setInterval(() => moveSlide(1), 5000);
 
         function moveSlide(step) {
-            // Reset timer so it doesn't jump immediately after a click
             clearInterval(autoPlay);
-            autoPlay = setInterval(() => moveSlide(1), 4000);
+            autoPlay = setInterval(() => moveSlide(1), 5000);
 
-            // Remove active class from current slide
             slides[slideIndex].classList.remove('active');
-
-            // Calculate new index
             slideIndex = (slideIndex + step + slides.length) % slides.length;
-
-            // Add active class to new slide
             slides[slideIndex].classList.add('active');
         }
     </script>
 
 </body>
 </html>
-
 
